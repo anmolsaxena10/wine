@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 from rest_framework import routers
 from wineApp import views
 
 router = routers.DefaultRouter()
 router.register(r'wine', views.Home)
+# router.register(r'wine/filter', views.Filtered, base_name="filter view")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'api/wine/filter', views.Filtered.as_view()),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('load/', views.LoadData)
